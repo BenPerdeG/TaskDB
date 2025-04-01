@@ -6,7 +6,7 @@ public final class RavenDBDocumentStore {
     private static IDocumentStore store;
 
     static {
-        store =new DocumentStore(new String[]{"http://192.168.22.118:8080"}, "TaskDB");
+        store = new DocumentStore(new String[]{"http://192.168.22.118:8080"}, "TaskDB");
         DocumentConventions conventions = store.getConventions();
         conventions.setUseOptimisticConcurrency(true);
 
