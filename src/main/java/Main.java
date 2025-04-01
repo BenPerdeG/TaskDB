@@ -3,6 +3,8 @@ import net.ravendb.client.documents.IDocumentStore;
 import net.ravendb.client.documents.conventions.DocumentConventions;
 import net.ravendb.client.documents.session.IDocumentSession;
 
+import java.util.Random;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -24,23 +26,47 @@ public class Main {
 
             store.initialize();
 
-            try (IDocumentSession session = store.openSession()) {
 
-                Task task = new Task();
-                task.setTitle("task slfj4");
-                task.setDescription("If this works el merino se rapa");
-                task.setPriority(99);
-                task.setStatus(Task.Status.IN_PROGRESS);
+            createTasksFori(store);
 
-                session.store(task);
-
-                session.saveChanges();
-            }
+            createTask(store);
 
         }
 
 
 
 
+    }
+
+    private static void createTask(IDocumentStore store) {
+        try (IDocumentSession session = store.openSession()) {
+
+            Task task = new Task();
+            task.setTitle("Task");
+            task.setDescription("If this works el merino se rapa");
+            task.setPriority(99);
+            task.setStatus(Task.Status.IN_PROGRESS);
+
+            session.store(task);
+
+            session.saveChanges();
+        }
+    }
+
+    private static void createTasksFori(IDocumentStore store) {
+        for (int i = 5; i < 50; i++) {
+            try (IDocumentSession session = store.openSession()) {
+
+                Task task = new Task();
+                task.setTitle("Task: " + i);
+                task.setDescription("Random task, who know how will be done now...");
+                task.setPriority((int) (Math.random() * 10) + 1);
+                task.setStatus(Task.Status.IN_PROGRESS);
+
+                session.store(task);
+
+                session.saveChanges();
+            }
+        }
     }
 }
