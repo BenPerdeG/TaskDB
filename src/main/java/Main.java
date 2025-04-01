@@ -27,10 +27,10 @@ public class Main {
             try (IDocumentSession session = store.openSession()) {
 
                 Task task = new Task();
-                task.setTitle("Task done");
-                task.setDescription("Test of done statues");
-                task.setPriority(1);
-                task.setStatus(Task.Status.DONE);
+                task.setTitle("task slfj4");
+                task.setDescription("If this works el merino se rapa");
+                task.setPriority(99);
+                task.setStatus(Task.Status.IN_PROGRESS);
 
                 session.store(task);
 
