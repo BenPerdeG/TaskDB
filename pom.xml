@@ -20,6 +20,11 @@
             <artifactId>ravendb</artifactId>
             <version>6.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+            <version>10.1.39</version>
+        </dependency>
     </dependencies>
 
     <repositories>
