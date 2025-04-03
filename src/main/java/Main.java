@@ -14,6 +14,6 @@ public class Main {
 //            System.out.println("Parece que algo ha salido mal");
 //        }
 
-        crud.selectALL();
+        crud.selectByStatus(0);
     }
 }

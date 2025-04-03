@@ -133,6 +133,82 @@ public class CRUD {
         }
     }
 
+    public int selectByName( String titulo){
+        try (IDocumentStore store = new DocumentStore(new String[]{URL}, DATABASE)) {
+
+
+            store.initialize();
+            try (IDocumentSession session = store.openSession()) {
+
+                List<Task> results = session.query(Task.class).whereEquals("title",titulo).toList();
+                for (Task task : results) {
+                    System.out.println(task);
+                }
+
+                session.saveChanges();
+                return 1;
+            }
+            catch (Exception e){
+                return -1;
+            }
+        }
+        catch (Exception e){
+            return -1;
+        }
+    }
+    public int selectByPriority( int priority){
+        try (IDocumentStore store = new DocumentStore(new String[]{URL}, DATABASE)) {
+
+
+            store.initialize();
+            try (IDocumentSession session = store.openSession()) {
+
+                List<Task> results = session.query(Task.class).whereEquals("priority",priority).toList();
+                for (Task task : results) {
+                    System.out.println(task);
+                }
+
+                session.saveChanges();
+                return 1;
+            }
+            catch (Exception e){
+                return -1;
+            }
+        }
+        catch (Exception e){
+            return -1;
+        }
+    }
+
+
+    public int selectByStatus( int status){
+        try (IDocumentStore store = new DocumentStore(new String[]{URL}, DATABASE)) {
+
+            if(status > 3  || status<0){
+                System.out.println("Error al introducir el status. Prueba con un numero entr 0-3");
+                return -1;
+            }
+
+
+            store.initialize();
+            try (IDocumentSession session = store.openSession()) {
+
+                List<Task> results = session.query(Task.class).whereEquals("status",Task.Status.fromValue(status)).toList();
+                for (Task task : results) {
+                    System.out.println(task);
+                }
+
+                session.saveChanges();
+                return 1;
+            }
+            catch (Exception e){
+                return -1;
+            }
+        }
+        catch (Exception e){
+            return -1;
+        }
+    }
 
 
 }
