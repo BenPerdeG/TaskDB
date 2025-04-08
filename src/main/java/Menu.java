@@ -44,7 +44,12 @@ public class Menu {
                 return;
 
             case 4:
-                return;
+                Scanner sc = new Scanner(System.in);
+                System.out.print("This is an action without and UNDO, make sure to think twice before delete.\nName of the task to delete: ");
+                String title = sc.nextLine().trim();
+                crud.delete(title);
+
+                break;
 
             case 5:
                 System.out.println("Bye bye ");
