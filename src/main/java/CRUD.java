@@ -156,6 +156,27 @@ public class CRUD {
             return -1;
         }
     }
+
+    public List<Task> getTaskByName(String title) {
+        try (IDocumentStore store = new DocumentStore(new String[]{URL}, DATABASE)) {
+
+
+            store.initialize();
+            try (IDocumentSession session = store.openSession()) {
+
+                List<Task> results = session.query(Task.class).whereEquals("title",title).toList();
+                session.saveChanges();
+                return results;
+            }
+            catch (Exception e){
+                return null;
+            }
+        }
+        catch (Exception e){
+            return null;
+        }
+    }
+
     public int selectByPriority( int priority){
         try (IDocumentStore store = new DocumentStore(new String[]{URL}, DATABASE)) {
 

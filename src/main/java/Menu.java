@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -44,10 +45,7 @@ public class Menu {
                 return;
 
             case 4:
-                Scanner sc = new Scanner(System.in);
-                System.out.print("This is an action without and UNDO, make sure to think twice before delete.\nName of the task to delete: ");
-                String title = sc.nextLine().trim();
-                crud.delete(title);
+                deleteTask();
 
                 break;
 
@@ -59,6 +57,21 @@ public class Menu {
                 System.out.println("\u001B[31m"+"\n\tThere has been an issue with your option select. Please try again with an option from 1-5.");
                 menu(showOptions());
         }
+    }
+
+    private void deleteTask() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Name of the task to delete: ");
+        String title = sc.nextLine().trim();
+        List<Task> taskTemporal = crud.getTaskByName(title);
+        System.out.println(taskTemporal);
+        System.out.println("You will delete this task/s, if empty there's no task with such name: ");
+        System.out.print("This is an action without and UNDO, make sure to think twice before delete.\nYes to delete Ctrl + c to force quit.");
+        sc.next();
+        int response = crud.delete(title);
+        if (response == 1) System.out.println("The task \"" + title +"\" has been successfully deleted.");
+        else System.out.println("Wrong task name.");
+        menu(showOptions());
     }
 
     private void listOptions() {
