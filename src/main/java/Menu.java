@@ -95,7 +95,6 @@ public class Menu {
                 }
                 catch(Exception e){
                     System.out.println("\u001B[31m"+"\n\tThere has been an issue with your option select. Please try again with an option from 1-5.");
-                    listOptions();
                 }
 
                break;
@@ -107,7 +106,6 @@ public class Menu {
                 }
                 catch(Exception e){
                     System.out.println("\u001B[31m"+"\n\tThere has been an issue with your option select. Please try again with an option from 1-5.");
-                    listOptions();
                 }
                 break;
 
@@ -118,7 +116,6 @@ public class Menu {
                 }
                 catch(Exception e){
                     System.out.println("\u001B[31m"+"\n\tThere has been an issue with your option select. Please try again with an option from 1-5.");
-                    listOptions();
                 }
                 break;
 
@@ -129,7 +126,7 @@ public class Menu {
                 System.out.println("\u001B[31m"+"\n\tThere has been an issue with your option select. Please try again with an option from 1-5.");
                 menu(showOptions());
         }
-
+        listOptions();
     }
 
 
