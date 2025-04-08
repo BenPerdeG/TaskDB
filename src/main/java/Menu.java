@@ -58,6 +58,7 @@ public class Menu {
 
     private void listOptions() {
         Scanner sc = new Scanner(System.in);
+        try{
         System.out.println("\u001B[0m");
         System.out.println("Filter by:\n");
         System.out.println("\t1-All");
@@ -65,7 +66,64 @@ public class Menu {
         System.out.println("\t3-Priority");
         System.out.println("\t4-Status");
         System.out.println("\t5-Go Back");
+        int option = sc.nextInt();
+        listTask(option);
+        }
+        catch(Exception e){
+            System.out.println("\u001B[31m"+"\n\tThere has been an issue with your option select. Please try again with an option from 1-5.");
+            listOptions();
+        }
 
+    }
+
+    private void listTask(int option) {
+        Scanner sc = new Scanner(System.in);
+        switch (option) {
+            case 1:
+                crud.selectALL();
+                break;
+
+            case 2:
+                try {
+                    System.out.print("NAME:");
+                    crud.selectByName(sc.nextLine());
+                }
+                catch(Exception e){
+                    System.out.println("\u001B[31m"+"\n\tThere has been an issue with your option select. Please try again with an option from 1-5.");
+                    listOptions();
+                }
+
+               break;
+
+            case 3:
+                try {
+                    System.out.print("PRIORITY:");
+                    crud.selectByPriority(sc.nextInt());
+                }
+                catch(Exception e){
+                    System.out.println("\u001B[31m"+"\n\tThere has been an issue with your option select. Please try again with an option from 1-5.");
+                    listOptions();
+                }
+                break;
+
+            case 4:
+                try {
+                    System.out.print("STATUS(0-3):");
+                    crud.selectByStatus(sc.nextInt());
+                }
+                catch(Exception e){
+                    System.out.println("\u001B[31m"+"\n\tThere has been an issue with your option select. Please try again with an option from 1-5.");
+                    listOptions();
+                }
+                break;
+
+            case 5:
+                menu(showOptions());
+
+            default:
+                System.out.println("\u001B[31m"+"\n\tThere has been an issue with your option select. Please try again with an option from 1-5.");
+                menu(showOptions());
+        }
 
     }
 
