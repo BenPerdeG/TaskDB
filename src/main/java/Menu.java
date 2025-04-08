@@ -65,7 +65,7 @@ public class Menu {
         Scanner sc = new Scanner(System.in);
         try{
         System.out.println("\u001B[0m");
-        System.out.println("Filter by:\n");
+        System.out.println("Filter by:");
         System.out.println("\t1-All");
         System.out.println("\t2-Name");
         System.out.println("\t3-Priority");
