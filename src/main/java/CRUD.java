@@ -26,7 +26,7 @@ public class CRUD {
                 task.setDescription(description);
                 task.setPriority(priority);
 
-                if(status > 3  || status<0){
+                if(status > 3 || status<0){
                     System.out.println("Error al introducir el status. Prueba con un numero entr 0-3");
                     return -1;
                 }
