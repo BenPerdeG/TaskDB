@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -45,11 +46,7 @@ public class Menu {
                 return;
 
             case 4:
-                Scanner sc = new Scanner(System.in);
-                System.out.print("This is an action without and UNDO, make sure to think twice before delete.\nName of the task to delete: ");
-                String title = sc.nextLine().trim();
-                crud.delete(title);
-
+                deleteTask();
                 break;
 
             case 5:
@@ -110,11 +107,28 @@ public class Menu {
         menu(showOptions());
     }
 
+
+
+    private void deleteTask() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Name of the task to delete: ");
+        String title = sc.nextLine().trim();
+        List<Task> taskTemporal = crud.getTaskByName(title);
+        System.out.println(taskTemporal);
+        System.out.println("You will delete this task/s, if empty there's no task with such name: ");
+        System.out.print("This is an action without and UNDO, make sure to think twice before delete.\nYes to delete Ctrl + c to force quit.");
+        sc.next();
+        int response = crud.delete(title);
+        if (response == 1) System.out.println("The task \"" + title +"\" has been successfully deleted.");
+        else System.out.println("Wrong task name.");
+        menu(showOptions());
+    }
+
     private void listOptions() {
         Scanner sc = new Scanner(System.in);
         try{
         System.out.println("\u001B[0m");
-        System.out.println("Filter by:");
+        System.out.println("Filter by:\n");
         System.out.println("\t1-All");
         System.out.println("\t2-Name");
         System.out.println("\t3-Priority");
