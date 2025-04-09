@@ -92,10 +92,14 @@ public class Menu {
         System.out.print("Task status |0-3| (0): ");
         String tmpSt = sc.nextLine();
         if(!tmpSt.equals("")){
+            try{
             if(Integer.parseInt(tmpSt)==0 || Integer.parseInt(tmpSt)==1 || Integer.parseInt(tmpSt)==2 || Integer.parseInt(tmpSt)==3 ){
                 status =  Task.Status.fromValue(Integer.parseInt(tmpSt));
                 intstatus = Integer.parseInt(tmpSt);
             }else {
+                System.out.println("\u001B[31m"+"Something went wrong with your priority setting. Defaulting value to 0 (PENDING)."+"\u001B[0m");
+            }
+            }catch (Exception e){
                 System.out.println("\u001B[31m"+"Something went wrong with your priority setting. Defaulting value to 0 (PENDING)."+"\u001B[0m");
             }
         }
@@ -153,7 +157,7 @@ public class Menu {
 
             case 2:
                 try {
-                    System.out.print("NAME:");
+                    System.out.print("NAME: ");
                     crud.selectByName(sc.nextLine());
                 }
                 catch(Exception e){
@@ -164,7 +168,7 @@ public class Menu {
 
             case 3:
                 try {
-                    System.out.print("PRIORITY:");
+                    System.out.print("PRIORITY: ");
                     crud.selectByPriority(sc.nextInt());
                 }
                 catch(Exception e){
@@ -174,7 +178,7 @@ public class Menu {
 
             case 4:
                 try {
-                    System.out.print("STATUS(0-3):");
+                    System.out.print("STATUS(0-3): ");
                     crud.selectByStatus(sc.nextInt());
                 }
                 catch(Exception e){
