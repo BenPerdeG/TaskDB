@@ -43,7 +43,9 @@ public class Menu {
                 break;
 
             case 3:
-                return;
+                modifyTask();
+                
+                break;
 
             case 4:
                 deleteTask();
@@ -113,15 +115,67 @@ public class Menu {
 
 
 
+    private void modifyTask() {
+        Scanner sc = new Scanner(System.in);
+        Task oldTask;
+        Task newTask = new Task();
+        String oldTitle, title, oldDescription ,description;
+        int oldPriority, priority, oldStatus, Status;
+        System.out.print("Name of the task to modify: ");
+        oldTitle = sc.nextLine().trim();
+        List<Task> taskTemporal = crud.getTaskByName(oldTitle);
+        if (taskTemporal.get(0) == null) return;
+        System.out.println("You will modify this task: ");
+        oldTask = taskTemporal.get(0);
+        System.out.println(oldTask);
+        System.out.println("Task modification in progres...");
+        System.out.println("EMPTY to keep (old values)");
+        System.out.print("Tittle (" + oldTask.getTitle() + "): ");
+        newTask.setTitle(sc.nextLine());
+        if (newTask.getTitle().equals("")) {
+            newTask.setTitle(oldTask.getTitle());
+        }
+        System.out.print("Description: (" + oldTask.getDescription() + "): ");
+        newTask.setDescription(sc.nextLine());
+        if (newTask.getDescription().equals("")) {
+            newTask.setDescription(oldTask.getDescription());
+        }
+        System.out.print("Priority (" + oldTask.getPriority() + "): ");
+        String temporal = sc.nextLine().trim();
+        try {
+            newTask.setPriority(Integer.parseInt(temporal));
+        } catch (Exception e) {
+            newTask.setPriority(oldTask.getPriority());
+        }
+        if (String.valueOf(newTask.getPriority()).equals("")) {
+            newTask.setPriority(oldTask.getPriority());
+        }
+        System.out.print("Stuts (" + oldTask.getStatus() + "): ");
+        temporal = sc.nextLine().trim();
+
+        try {
+            newTask.setStatus(Task.Status.fromValue(Integer.parseInt(temporal)));
+        } catch (Exception e) {
+            newTask.setStatus(oldTask.getStatus());
+        }
+        if (String.valueOf(newTask.getStatus()).equals("")) {
+            newTask.setStatus(oldTask.getStatus());
+        }
+        crud.update(oldTitle, newTask.getTitle(), newTask.getDescription(), newTask.getPriority(), newTask.getStatus().getValue());
+        System.out.println("\nTask modified successfully, task:");
+        System.out.println(newTask);
+        menu(showOptions());
+    }
+
     private void deleteTask() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Name of the task to delete: ");
         String title = sc.nextLine().trim();
         List<Task> taskTemporal = crud.getTaskByName(title);
         System.out.println(taskTemporal);
-        System.out.println("You will delete this task/s, if empty there's no task with such name: ");
+        System.out.println("You will delete this task/s, if empty there's no task with such name.");
         System.out.print("This is an action without and UNDO, make sure to think twice before delete.\nYes to delete Ctrl + c to force quit.");
-        sc.next();
+        sc.nextLine();
         int response = crud.delete(title);
         if (response == 1) System.out.println("The task \"" + title +"\" has been successfully deleted.");
         else System.out.println("Wrong task name.");
@@ -133,11 +187,11 @@ public class Menu {
         try{
         System.out.println("\u001B[0m");
         System.out.println("Filter by:\n");
-        System.out.println("\t1-All");
-        System.out.println("\t2-Name");
-        System.out.println("\t3-Priority");
-        System.out.println("\t4-Status");
-        System.out.println("\t5-Go Back");
+        System.out.println("\t1 - All");
+        System.out.println("\t2 - Name");
+        System.out.println("\t3 - Priority");
+        System.out.println("\t4 - Status");
+        System.out.println("\t5 - Go Back");
         int option = sc.nextInt();
         listTask(option);
         }
