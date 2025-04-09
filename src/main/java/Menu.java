@@ -38,7 +38,8 @@ public class Menu {
                 break;
 
             case 2:
-                return;
+                addTask();
+                break;
 
             case 3:
                 return;
@@ -59,6 +60,54 @@ public class Menu {
                 System.out.println("\u001B[31m"+"\n\tThere has been an issue with your option select. Please try again with an option from 1-5.");
                 menu(showOptions());
         }
+    }
+
+    private void addTask() {
+        Scanner sc = new Scanner(System.in);
+
+        //Valores Default
+        String title = "New Task";
+        String description = "Describe your task";
+        int priority=0;
+        Task.Status status = Task.Status.fromValue(0);
+        int intstatus =0;
+
+        System.out.println("New task info:");
+
+        System.out.print("Task Name (New Task): ");
+        String tmpNm = sc.nextLine();
+        if(!tmpNm.equals("")){title = tmpNm;}
+
+        System.out.print("Task description (Describe your task): ");
+        String tmpDsc = sc.nextLine();
+        if(!tmpDsc.equals("")){description = tmpDsc;}
+
+        System.out.print("Task priority(0): ");
+        String tmpPr = sc.nextLine();
+        if(!tmpPr.equals("")){
+            try{
+                priority=Integer.parseInt(tmpPr);
+            }catch (Exception e){
+                System.out.println("\u001B[31m"+"Something went wrong with your priority setting. Defaulting value to 0."+"\u001B[0m");
+            }
+        }
+
+        System.out.print("Task status |0-3| (0): ");
+        String tmpSt = sc.nextLine();
+        if(!tmpSt.equals("")){
+            if(Integer.parseInt(tmpSt)==0 || Integer.parseInt(tmpSt)==1 || Integer.parseInt(tmpSt)==2 || Integer.parseInt(tmpSt)==3 ){
+                status =  Task.Status.fromValue(Integer.parseInt(tmpSt));
+                intstatus = Integer.parseInt(tmpSt);
+            }else {
+                System.out.println("\u001B[31m"+"Something went wrong with your priority setting. Defaulting value to 0 (PENDING)."+"\u001B[0m");
+            }
+        }
+
+        Task newTask = new Task(title,description,priority,status);
+        crud.create(title,description,priority,intstatus);
+        System.out.println("This is the new task you've added:\n" + newTask);
+
+        menu(showOptions());
     }
 
     private void listOptions() {
